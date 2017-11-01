@@ -93,6 +93,8 @@ public:
             denom = leftNum.denom;
             leftNum.num = num;
             leftNum.denom = denom;
+            cout << leftNum << endl;
+            cout << this->num << this->denom << endl;
         }
         leftNum*rightNum;
     }
