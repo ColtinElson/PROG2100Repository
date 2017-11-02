@@ -37,24 +37,26 @@ public:
         denom = (denom /gcf);
     }
 
-    Rational operator+ (Rational &rightNum)
+    Rational operator+ (Rational rightNum)
     {
+        int leftNumer = this-> num;
         int leftDenom = this->denom;
+        Rational leftNum(leftNumer, leftDenom);
         int rightDenom = rightNum.denom;
         if (leftDenom != rightDenom) {
-            this->num = rightDenom * this->num;
-            this->denom = rightDenom * this->denom;
+            leftNum.num = rightDenom * leftNum.num;
+            leftNum.denom = rightDenom * leftNum.denom;
             rightNum.num = leftDenom * rightNum.num;
             rightNum.denom = leftDenom * rightNum.denom;
         }
 
 
-        Rational added(this->num + rightNum.num, this->denom);
+        Rational added(leftNum.num + rightNum.num, leftNum.denom);
         normalize(added.num, added.denom);
         return added;
     }
 
-    Rational operator- (Rational &rightNum)
+    Rational operator- (Rational rightNum)
     {
         int leftDenom = this->denom;
         int rightDenom = rightNum.denom;
@@ -71,19 +73,18 @@ public:
         return subtracted;
     }
 
-    Rational operator* (Rational &rightNum)
+    Rational operator* (Rational rightNum)
     {
         Rational multiplied(this->num * rightNum.num, this->denom * rightNum.denom);
         normalize(multiplied.num, multiplied.denom);
         return multiplied;
     }
 
-    Rational operator/ (Rational &rightNum)
+    Rational operator/ (Rational rightNum)
     {
         Rational leftNum(this->num, this->denom);
         int num, denom;
         if (rightNum.num != 0) {
-            cout << "right flipped" << endl;
             num = rightNum.num;
             denom = rightNum.denom;
             rightNum.num = denom;
@@ -92,16 +93,16 @@ public:
         }
         else if (leftNum.num != 0) {
             cout << "The right rational number can not have a 0 in its numerator (can't divide by 0)!" << endl;
-//            cout << "left flip" << endl;
 //            num = leftNum.num;
 //            denom = leftNum.denom;
 //            leftNum.num = num;
 //            leftNum.denom = denom;
+//            leftNum*rightNum;
         }
 
     }
 
-    bool operator== (Rational &rightNum)
+    bool operator== (Rational rightNum)
     {
         normalize(this->num, this->denom);
         normalize(rightNum.num, rightNum.denom);
@@ -110,7 +111,7 @@ public:
         return cross1 == cross2;
     }
 
-    bool operator> (Rational &rightNum)
+    bool operator> (Rational rightNum)
     {
         normalize(this->num, this->denom);
         normalize(rightNum.num, rightNum.denom);
@@ -119,7 +120,7 @@ public:
         return cross1 > cross2;
     }
 
-    bool operator< (Rational &rightNum)
+    bool operator< (Rational rightNum)
     {
         normalize(this->num, this->denom);
         normalize(rightNum.num, rightNum.denom);
