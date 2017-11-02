@@ -82,27 +82,61 @@ public:
     {
         Rational leftNum(this->num, this->denom);
         int num, denom;
-        if (rightNum.denom != 0) {
+        if (rightNum.num != 0) {
+            cout << "right flipped" << endl;
             num = rightNum.num;
             denom = rightNum.denom;
             rightNum.num = denom;
             rightNum.denom = num;
+            leftNum*rightNum;
         }
-        else if (leftNum.denom != 0) {
-            num = leftNum.num;
-            denom = leftNum.denom;
-            leftNum.num = num;
-            leftNum.denom = denom;
-            cout << leftNum << endl;
-            cout << this->num << this->denom << endl;
+        else if (leftNum.num != 0) {
+            cout << "The right rational number can not have a 0 in its numerator (can't divide by 0)!" << endl;
+//            cout << "left flip" << endl;
+//            num = leftNum.num;
+//            denom = leftNum.denom;
+//            leftNum.num = num;
+//            leftNum.denom = denom;
         }
-        leftNum*rightNum;
+
     }
+
+    bool operator== (Rational &rightNum)
+    {
+        normalize(this->num, this->denom);
+        normalize(rightNum.num, rightNum.denom);
+        int cross1 = this->num * rightNum.denom;
+        int cross2 = this->denom * rightNum.num;
+        return cross1 == cross2;
+    }
+
+    bool operator> (Rational &rightNum)
+    {
+        normalize(this->num, this->denom);
+        normalize(rightNum.num, rightNum.denom);
+        int cross1 = this->num * rightNum.denom;
+        int cross2 = this->denom * rightNum.num;
+        return cross1 > cross2;
+    }
+
+    bool operator< (Rational &rightNum)
+    {
+        normalize(this->num, this->denom);
+        normalize(rightNum.num, rightNum.denom);
+        int cross1 = this->num * rightNum.denom;
+        int cross2 = this->denom * rightNum.num;
+        return cross1 < cross2;
+    }
+
     //implementation of friend function
     friend ostream& operator<<(ostream &output, Rational &number)
     {
-        normalize(number.num, number.denom);
-        output << number.num << "/" << number.denom;
+        if (number.denom != 0) {
+            output << number.num << "/" << number.denom;
+        }
+        else {
+            output << "";
+        }
         return output; //returns an ostream obj
     }
 
