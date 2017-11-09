@@ -10,7 +10,9 @@ using namespace std;
     Student::Student(string studentName, string* courses) //constructor with student name and course array
             : max(5), name(studentName), courseList(courses), courseCount(static_cast<int>(courses->length())) {}
 
-    Student::Student(const Student &student) {
+    Student::Student(const Student &student) //copy constructor
+    {
+        cout << "Copy constructor fired " << endl;
         string *tempArray = new string[student.courseCount];
         for (int i = 0; i < student.courseCount; i++) {
             tempArray[i] = student.courseList[i];
@@ -21,27 +23,39 @@ using namespace std;
         name = student.name;
     }
 
-    void Student::addCourse(string name) {
+    Student::~Student() //destructor with not null check
+    {
+        cout << "Destructor fired " << endl;
+        if (this != nullptr) {
+            delete this;
+        }
+    }
+
+    void Student::addCourse(string name) //add a course to the courselist
+    {
+        //add the course and increase the course count
         courseList[courseCount] = name;
         courseCount++;
+        //if the new course count is equal to the max (size of list)
         if (courseCount == max) {
+            //add 5 to the max to increase it
             max += 5;
 
+            //create a new array with the new max size
             string *tempArray = new string[max];
 
+            //assign new array all values of old array
             for (int i = 0; i < courseCount; i++) {
                 tempArray[i] = courseList[i];
             }
 
+            //delete old array and make new array equal to array
             delete[]courseList;
             courseList = tempArray;
         }
     }
 
-    string * Student::getCourseList() {
-        return courseList;
-    }
-
+    //print out the course list as a string
     string Student::printCourseList() {
         string courses;
         for (int i = 0; i < courseCount; i++) {
@@ -53,10 +67,21 @@ using namespace std;
         return courses;
     }
 
+    //reset course count and course list
     void Student::resetStudent() {
         courseCount = 0;
         setCourseList({});
 
+    }
+
+    //overloaded assignment operator
+    Student& Student::operator= (const Student &student) {
+        cout << "assignment operator fired " << endl;
+        courseCount = student.courseCount;
+        courseList = student.courseList;
+        name = student.name;
+        max = courseCount + 5;
+        return *this;
     }
 
     //implementation of friend functions
@@ -69,6 +94,8 @@ using namespace std;
         return output;
     }
 
+
+//getters and setters
 
 const string &Student::getName() const {
     return name;
@@ -84,6 +111,10 @@ int Student::getMax() {
 
 void Student::setMax(int max) {
     Student::max = max;
+}
+
+string * Student::getCourseList() {
+    return courseList;
 }
 
 void Student::setCourseList(string *courseList) {

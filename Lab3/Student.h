@@ -20,6 +20,8 @@ public:
 
     Student(const Student &student);
 
+    ~Student();
+
     string printCourseList();
 
     const string &getName() const;
@@ -42,13 +44,7 @@ public:
 
     void resetStudent();
 
-    void operator= (const Student &student) {
-        Student temp;
-        temp.courseCount = student.courseCount;
-        temp.courseList = student.courseList;
-        temp.name = student.name;
-        temp.max = courseCount + 5;
-    }
+    Student& operator= (const Student &student);
 
     friend ostream& operator<<(ostream &output, Student &student);
 
