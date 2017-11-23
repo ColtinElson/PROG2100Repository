@@ -3,5 +3,5 @@ project(Lab4)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp original.cpp)
+set(SOURCE_FILES main.cpp HTMLConverter.cpp HTMLConverter.h)
 add_executable(Lab4 ${SOURCE_FILES})
