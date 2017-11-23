@@ -22,7 +22,6 @@ bool HTMLConverter::checkOutputFileName(string name) {
     string extension = name.substr(length-5, length-1);
     if (extension == ".html") {
         valid = true;
-        cout << "valid" << endl;
     }
 
     return valid;
@@ -37,11 +36,9 @@ bool HTMLConverter::readFile(string name) {
     try {
         inputFile.open(name);
         valid = true;
-        cout << "file opened" << endl;
     }
     catch(ifstream::failure&) {
         valid = false;
-        cout << "bad file" << endl;
     }
 
     return valid;
@@ -60,12 +57,19 @@ string HTMLConverter::writeToFile(string inputName, string outputName) {
         if (inputFile.is_open()) {
             string line;
 
+            if (!outputFile.fail()) {
+                outputFile << "<PRE>" << endl;
+            }
             while (getline(inputFile,line)) {
-                if (inputFile.eof()) {
-                    return "file read!";
+                if (!inputFile.fail()) {
+                    line = HTMLConverter::convertLine(line);
+                    if (!outputFile.fail()) {
+                        outputFile << line << endl;
+                    }
                 }
-                line = HTMLConverter::convertLine(line);
-                outputFile << line << endl;
+            }
+            if (!outputFile.fail()) {
+                outputFile << "</PRE>" << endl;
             }
         }
 
@@ -80,11 +84,31 @@ string HTMLConverter::writeToFile(string inputName, string outputName) {
         return "Bad input file";
     }
 
-
-    return "valid";
+    return "\nFile written succesfully!";
 }
 
 string HTMLConverter::convertLine(string line) {
-    line.find()
+    bool moreChars = true;
+    while (moreChars) {
+        size_t charFound = line.find('<');
+        if (charFound != string::npos) {
+            line.replace(charFound, 1, "&lt;");
+        }
+        else {
+            moreChars = false;
+        }
+    }
+
+    moreChars = true;
+    while (moreChars) {
+        size_t charFound = line.find('>');
+        if (charFound != string::npos) {
+            line.replace(charFound, 1, "&gt;");
+        }
+        else {
+            moreChars = false;
+        }
+    }
+
     return line;
 }

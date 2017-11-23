@@ -43,6 +43,8 @@ int main() {
     }
 
     HTMLConverter::writeToFile(inputFile, outputFile);
+
+    cout << "File written succesfully!" << endl;
     return 0;
 }
 
