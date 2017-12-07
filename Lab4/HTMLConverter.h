@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //LAB4_HTMLCONVERTER_H
+#endif

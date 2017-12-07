@@ -112,38 +112,50 @@ string HTMLConverter::writeToFile(string inputName, string outputName) {
 //convert < to &lt; and > to &gt;
 string HTMLConverter::convertLine(string line) {
     //assume there are some more chars to convert
-    bool moreChars = true;
-    //while there are some
-    while (moreChars) {
-        //get the position of <
-        size_t charFound = line.find('<');
-        //if one was found
-        if (charFound != string::npos) {
-            //replace < with &lt;
-            line.replace(charFound, 1, "&lt;");
+    for (int i = 0; i < line.length(); i++) {
+        if (line[i] == '<') {
+            string sub1 = line.substr(0, i);
+            string sub2 = line.substr(i+1);
+            line = sub1 + "&lt;" + sub2;
         }
-            //if none were found, move on
-        else {
-            moreChars = false;
+        if (line[i] == '>') {
+            string sub1 = line.substr(0, i);
+            string sub2 = line.substr(i+1);
+            line = sub1 + "&gt;" + sub2;
         }
     }
-
-    //assume there are chars to convert
-    moreChars = true;
-    //while there are some
-    while (moreChars) {
-        //get the position of >
-        size_t charFound = line.find('>');
-        //if one was found
-        if (charFound != string::npos) {
-            //replace > with &gt;
-            line.replace(charFound, 1, "&gt;");
-        }
-            //if none were found, move on
-        else {
-            moreChars = false;
-        }
-    }
+//    bool moreChars = true;
+//    //while there are some
+//    while (moreChars) {
+//        //get the position of <
+//        size_t charFound = line.find('<');
+//        //if one was found
+//        if (charFound != string::npos) {
+//            //replace < with &lt;
+//            line.replace(charFound, 1, "&lt;");
+//        }
+//            //if none were found, move on
+//        else {
+//            moreChars = false;
+//        }
+//    }
+//
+//    //assume there are chars to convert
+//    moreChars = true;
+//    //while there are some
+//    while (moreChars) {
+//        //get the position of >
+//        size_t charFound = line.find('>');
+//        //if one was found
+//        if (charFound != string::npos) {
+//            //replace > with &gt;
+//            line.replace(charFound, 1, "&gt;");
+//        }
+//            //if none were found, move on
+//        else {
+//            moreChars = false;
+//        }
+//    }
 
     //return the line
     return line;
