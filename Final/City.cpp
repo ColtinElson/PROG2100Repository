@@ -47,6 +47,7 @@ void City::move() {
             }
         }
     }
+
     for (int i = 0; i < GRID_WIDTH; i++) {
         for (int j = 0; j < GRID_HEIGHT; j++) {
             if (this->getOrganism(i,j) != nullptr) {

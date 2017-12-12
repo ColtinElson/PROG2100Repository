@@ -6,8 +6,10 @@
 
 using namespace std;
 
-const int GRID_WIDTH = 5;
-const int GRID_HEIGHT = 5;
+const int GRID_WIDTH = 20;
+const int GRID_HEIGHT = 20;
+const int numHumans = 100;
+const int numZombies = 5;
 
 class Organism;
 class Human;

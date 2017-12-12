@@ -16,18 +16,13 @@ protected:
 	int y;
 	int color;
 	int symbol = 32;
-public:
-	int getSymbol() const;
-
-public:
-	void setSymbol(int symbol);
 
 protected:
 	int width;
 	int height;
 	bool moved;
 
-	enum Move { WEST, NORTH, EAST, SOUTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST };
+	enum Move { WEST, NORTH, EAST, SOUTH/*, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST */ };
 
 public:
 
@@ -60,19 +55,25 @@ public:
     void makeMove(City *city, Organism *organism, int x, int y, int newX, int newY);
 
     int ageSinceBreed = 0;
+    int age;
 
 	virtual void breed(City *city, int x, int y) = 0;
 
-	//virtual void spawn() = 0;
 	virtual int getSpecies() = 0;
-	//virtual void getPosition() = 0;
 
-	void setPosition( int x, int y );
-	void newTurn();
-	bool isTurn();
+    int getAgeSinceBreed() const;
+
+    void setAgeSinceBreed(int ageSinceBreed);
+
+    int getAge() const;
+
+    void setAge(int age);
+
+    void newTurn();
 	void textcolor(int attribute, int textColor, int backgroundColor);
 
 	friend ostream& operator<<( ostream &output, Organism *organism );
+
 };
 
 #endif

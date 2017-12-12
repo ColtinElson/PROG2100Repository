@@ -24,29 +24,37 @@ void Human::move(City *city, int x, int y) {
 
             case WEST:
                 if (y != 0){
-                    if (city->getOrganism(x, y-1) == nullptr) {
-                        makeMove(city, this, x, y, x, y-1);
+                    int newX = x;
+                    int newY = y -1;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        makeMove(city, this, x, y, newX, newY);
                     }
                 }
                 break;
             case NORTH:
                 if (x != 0){
-                    if (city->getOrganism(x-1, y) == nullptr) {
-                        makeMove(city, this, x, y, x-1, y);
+                    int newX = x-1;
+                    int newY = y;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        makeMove(city, this, x, y, newX, newY);
                     }
                 }
                 break;
             case EAST:
                 if (y != GRID_WIDTH){
-                    if (city->getOrganism(x, y+1) == nullptr) {
-                        makeMove(city, this, x, y, x, y+1);
+                    int newX = x;
+                    int newY = y+1;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        makeMove(city, this, x, y, newX, newY);
                     }
                 }
                 break;
             case SOUTH:
                 if (x != GRID_HEIGHT){
-                    if (city->getOrganism(x+1, y) == nullptr) {
-                        makeMove(city, this, x, y, x+1, y);
+                    int newX = x+1;
+                    int newY = y;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        makeMove(city, this, x, y, newX, newY);
                     }
                 }
                 break;
@@ -59,6 +67,48 @@ int Human::getSpecies() {
 }
 
 void Human::breed(City *city, int x, int y) {
+    if (ageSinceBreed >= 3) {
+        ageSinceBreed = 0;
 
+        Move move = randomMove(v);
+        switch (move) {
+
+            case WEST:
+                if (y != 0){
+                    int newX = x;
+                    int newY = y -1;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        city->setOrganism(new Human(), newX, newY);
+                    }
+                }
+                break;
+            case NORTH:
+                if (x != 0){
+                    int newX = x-1;
+                    int newY = y;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        city->setOrganism(new Human(), newX, newY);
+                    }
+                }
+                break;
+            case EAST:
+                if (y != GRID_WIDTH){
+                    int newX = x;
+                    int newY = y+1;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        city->setOrganism(new Human(), newX, newY);
+                    }
+                }
+                break;
+            case SOUTH:
+                if (x != GRID_HEIGHT){
+                    int newX = x+1;
+                    int newY = y;
+                    if (city->getOrganism(newX, newY) == nullptr) {
+                        city->setOrganism(new Human(), newX, newY);
+                    }
+                }
+                break;
+        }
+    }
 }
-

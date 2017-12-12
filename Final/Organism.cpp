@@ -13,17 +13,11 @@ Organism::~Organism() {
 
 }
 
-void Organism::setPosition(int x, int y) {
-
-}
 
 void Organism::newTurn() {
     moved = false;
 }
 
-bool Organism::isTurn() {
-    return false;
-}
 
 ostream &operator<<(ostream &output, Organism *organism) {
     organism->textcolor(BRIGHT, organism->color, WHITE);
@@ -44,13 +38,6 @@ void Organism::textcolor(int attribute, int textColor, int backgroundColor) {
 
 }
 
-void Organism::setSymbol(int symbol) {
-    Organism::symbol = symbol;
-}
-
-int Organism::getSymbol() const {
-    return symbol;
-}
 
 void Organism::makeMove(City *city, Organism *organism, int x, int y, int newX, int newY) {
     if (!moved) {
@@ -63,8 +50,25 @@ void Organism::makeMove(City *city, Organism *organism, int x, int y, int newX, 
 
 Organism::Move Organism::randomMove(vector<int> v) {
     random_shuffle(v.begin(), v.end());
-
     return (Move)v.front();
 }
+
+int Organism::getAge() const {
+    return age;
+}
+
+void Organism::setAge(int age) {
+    Organism::age = age;
+}
+
+int Organism::getAgeSinceBreed() const {
+    return ageSinceBreed;
+}
+
+void Organism::setAgeSinceBreed(int ageSinceBreed) {
+    Organism::ageSinceBreed = ageSinceBreed;
+}
+
+
 
 

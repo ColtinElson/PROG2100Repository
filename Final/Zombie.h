@@ -3,11 +3,11 @@
 
 #include "Organism.h"
 #include "City.h"
+#include "Human.h"
 
 class Zombie : public Organism
 {
 protected:
-    int age;
     vector<int> v { 0,1,2,3,4,5,6,7 };
 public:
 
@@ -21,6 +21,7 @@ public:
 	void move(City *city, int x, int y) override;
 
 	void breed(City *city, int x, int y) override;
+
 
 };
 

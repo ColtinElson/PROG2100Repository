@@ -9,7 +9,7 @@ class Human : public Organism
 {
 
 protected:
-	vector<int> v { 1,2,3,4 };
+	vector<int> v {1,2,3,4};
 public:
 	Human(); 
 	Human( City *city, int width, int height );
@@ -21,6 +21,7 @@ public:
 	void breed(City *city, int x, int y) override;
 
 	int getSpecies() override;
+
 
 };
 
