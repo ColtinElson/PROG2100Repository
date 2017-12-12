@@ -41,7 +41,7 @@ void Human::move(City *city, int x, int y) {
                 }
                 break;
             case EAST:
-                if (y != GRID_WIDTH){
+                if (y != (GRID_WIDTH-1)){
                     int newX = x;
                     int newY = y+1;
                     if (city->getOrganism(newX, newY) == nullptr) {
@@ -50,7 +50,7 @@ void Human::move(City *city, int x, int y) {
                 }
                 break;
             case SOUTH:
-                if (x != GRID_HEIGHT){
+                if (x != (GRID_WIDTH-1)){
                     int newX = x+1;
                     int newY = y;
                     if (city->getOrganism(newX, newY) == nullptr) {
@@ -92,7 +92,7 @@ void Human::breed(City *city, int x, int y) {
                 }
                 break;
             case EAST:
-                if (y != GRID_WIDTH){
+                if (y != (GRID_WIDTH-1)){
                     int newX = x;
                     int newY = y+1;
                     if (city->getOrganism(newX, newY) == nullptr) {
@@ -101,7 +101,7 @@ void Human::breed(City *city, int x, int y) {
                 }
                 break;
             case SOUTH:
-                if (x != GRID_HEIGHT){
+                if (x != (GRID_WIDTH-1)){
                     int newX = x+1;
                     int newY = y;
                     if (city->getOrganism(newX, newY) == nullptr) {

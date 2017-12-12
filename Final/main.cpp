@@ -20,7 +20,7 @@ int main() {
     float a=clock();
     while(turnCount < 10000)
     {
-        while((clock()-a)>= 1000000){
+        while((clock()-a)>= 300000){
             int clear = 5;
             do {
                 cout << endl;

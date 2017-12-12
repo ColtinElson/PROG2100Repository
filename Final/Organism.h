@@ -22,7 +22,7 @@ protected:
 	int height;
 	bool moved;
 
-	enum Move { WEST, NORTH, EAST, SOUTH/*, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST */ };
+	enum Move { WEST, NORTH, EAST, SOUTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST };
 
 public:
 
