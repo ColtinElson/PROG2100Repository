@@ -2,7 +2,7 @@
 #include "Organism.h"
 
 Organism::Organism() {
-
+    moved = true;
 }
 
 Organism::Organism(City *city, int width, int height) {
@@ -20,8 +20,11 @@ void Organism::newTurn() {
 
 
 ostream &operator<<(ostream &output, Organism *organism) {
+    //set text color using function
     organism->textcolor(BRIGHT, organism->color, WHITE);
+    //print symbol
     output << (char) organism->symbol;
+    //reset text color
     organism->textcolor(RESET, BLACK, WHITE);
     return output;
 }
