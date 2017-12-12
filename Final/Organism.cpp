@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Organism.h"
 
 Organism::Organism() {
@@ -16,7 +17,7 @@ void Organism::setPosition(int x, int y) {
 
 }
 
-void Organism::endTurn() {
+void Organism::newTurn() {
     moved = false;
 }
 
@@ -50,3 +51,20 @@ void Organism::setSymbol(int symbol) {
 int Organism::getSymbol() const {
     return symbol;
 }
+
+void Organism::makeMove(City *city, Organism *organism, int x, int y, int newX, int newY) {
+    if (!moved) {
+        city->setOrganism(organism, newX, newY);
+        city->setOrganism(nullptr, x, y);
+        moved=true;
+    }
+
+}
+
+Organism::Move Organism::randomMove(vector<int> v) {
+    random_shuffle(v.begin(), v.end());
+
+    return (Move)v.front();
+}
+
+

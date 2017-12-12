@@ -9,7 +9,7 @@ class Human : public Organism
 {
 
 protected:
-	vector<int> v { 1,3,5,7 };
+	vector<int> v { 1,2,3,4 };
 public:
 	Human(); 
 	Human( City *city, int width, int height );
@@ -18,7 +18,10 @@ public:
 
 	void move(City *city, int x, int y) override;
 
-	bool getOrganism(int x, int y);
+	void breed(City *city, int x, int y) override;
+
+	int getSpecies() override;
+
 };
 
 #endif

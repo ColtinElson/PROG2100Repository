@@ -1,9 +1,23 @@
+#include <random>
 #include "City.h"
 
 City::City() {
+    for (int i = 0; i < GRID_WIDTH; i++) {
+        for (int j = 0; j < GRID_HEIGHT; j++) {
+            setOrganism(nullptr, i, j);
+        }
+    }
 }
 
 City::~City() {
+for (int i = 0; i < GRID_WIDTH; i++) {
+        for (int j = 0; j < GRID_HEIGHT; j++) {
+            if (getOrganism(i,j) != nullptr) {
+                delete getOrganism(i,j);
+            }
+
+        }
+    }
 
 }
 
@@ -16,26 +30,31 @@ void City::setOrganism(Organism *organism, int x, int y) {
 }
 
 void City::move() {
+    for (int i = 0; i < GRID_WIDTH; i++) {
+        for (int j = 0; j < GRID_HEIGHT; j++) {
+            if (this->getOrganism(i,j) != nullptr) {
+                this->getOrganism(i,j)->newTurn();
+            }
+            else {
+            }
+        }
+    }
 
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 20; j++) {
+    for (int i = 0; i < GRID_WIDTH; i++) {
+        for (int j = 0; j < GRID_HEIGHT; j++) {
             if (this->getOrganism(i,j) != nullptr) {
                 this->getOrganism(i,j)->move(this, i,j);
             }
-            else {
+        }
+    }
+    for (int i = 0; i < GRID_WIDTH; i++) {
+        for (int j = 0; j < GRID_HEIGHT; j++) {
+            if (this->getOrganism(i,j) != nullptr) {
+                this->getOrganism(i,j)->breed(this, i,j);
             }
         }
     }
 
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 20; j++) {
-            if (this->getOrganism(i,j) != nullptr) {
-                this->getOrganism(i,j)->endTurn();
-            }
-            else {
-            }
-        }
-    }
 }
 
 ostream &operator<<(ostream &output, City &city) {

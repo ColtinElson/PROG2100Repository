@@ -7,31 +7,29 @@
 #include "Zombie.h"
 
 void populateBoard(int numHumans, int numZombies, City *city);
-void printBoard(City *city);
+int printBoard(City *city, int turnCount);
 
 using namespace std;
 
 int main() {
     int turnCount = 0;
-    int numHumans = 100;
-    int numZombies = 5;
+    int numHumans = 1;
+    int numZombies = 1;
     City *city = new City();
 
     populateBoard(numHumans, numZombies, city);
 
     float a=clock();
-    while(turnCount < 100)
+    while(turnCount < 10000)
     {
-        while((clock()-a)>= 3000000){
+        while((clock()-a)>= 300000){
             int clear = 5;
             do {
                 cout << endl;
                 clear -= 1;
             } while (clear !=0);
-            turnCount++;
-            cout << "Turns: " << turnCount << endl;
 
-            printBoard(city);
+            turnCount = printBoard(city, turnCount);
 
             city->move();
 
@@ -39,6 +37,7 @@ int main() {
         }
 
     }
+
     return 0;
 }
 
@@ -46,41 +45,39 @@ void populateBoard(int numHumans, int numZombies, City *city) {
     bool organismAdded = false;
     random_device rd;
     mt19937 mt(rd());
-    uniform_int_distribution<int> dist(0, 20);
+    uniform_int_distribution<int> dist(0, 5);
 
-    for (int i = 0; i <= numHumans; i++) {
-        Organism *human = new Human();
-        while(!organismAdded) {
-
-            int randX = dist(mt);
-            int randY = dist(mt);
-            if (city->getOrganism(randX, randY) == nullptr) {
-                city->setOrganism(human, randX, randY);
-                organismAdded = true;
-            }
+    int humansAdded = 0;
+    while (humansAdded < numHumans) {
+        Human *human = new Human();
+        int randX = dist(mt);
+        int randY = dist(mt);
+        if (city->getOrganism(randX, randY) == nullptr) {
+            city->setOrganism(human, randX, randY);
+            humansAdded++;
         }
-        organismAdded = false;
     }
 
-    for (int i = 0; i <= numZombies; i++) {
-        Organism *zombie = new Zombie();
-        while(!organismAdded) {
-
-            int randX = dist(mt);
-            int randY = dist(mt);
-            if (city->getOrganism(randX, randY) == nullptr) {
-                city->setOrganism(zombie, randX, randY);
-                organismAdded = true;
-            }
+    int zombiesAdded = 0;
+    while (zombiesAdded < numZombies) {
+        Zombie *zombie = new Zombie();
+        int randX = dist(mt);
+        int randY = dist(mt);
+        if (city->getOrganism(randX, randY) == nullptr) {
+            city->setOrganism(zombie, randX, randY);
+            zombiesAdded++;
         }
-        organismAdded = false;
     }
 }
 
-void printBoard(City *city) {
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 20; j++) {
+int printBoard(City *city, int turnCount) {
+    turnCount++;
+    cout << "Turns: " << turnCount << endl;
+    bool somethingAlive = false;
+    for (int i = 0; i < GRID_WIDTH; i++) {
+        for (int j = 0; j < GRID_HEIGHT; j++) {
             if (city->getOrganism(i,j) != nullptr) {
+                somethingAlive = true;
                 cout << city->getOrganism(i,j);
             }
             else {
@@ -89,4 +86,9 @@ void printBoard(City *city) {
         }
         cout << endl;
     }
+    if (!somethingAlive) {
+        cout << "GAME OVER! Extinction Level Event has occured at turn: " << turnCount << endl;
+        turnCount = 10000;
+    }
+    return turnCount;
 }

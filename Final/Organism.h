@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include "City.h"
 
 using namespace std;
 
@@ -25,9 +26,8 @@ protected:
 	int width;
 	int height;
 	bool moved;
-	City *city;
 
-	enum { WEST, NORTH, EAST, SOUTH, NUM_DIRECTIONS };
+	enum Move { WEST, NORTH, EAST, SOUTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST };
 
 public:
 
@@ -50,16 +50,25 @@ public:
 #define WHITE           8
 
 	Organism();
-	Organism( City *city, int width, int height );
+	Organism(City *city, int width, int height );
 	virtual ~Organism();
 
 	virtual void move(City *city, int x, int y) = 0;
+
+    Move randomMove(vector<int> v);
+
+    void makeMove(City *city, Organism *organism, int x, int y, int newX, int newY);
+
+    int ageSinceBreed = 0;
+
+	virtual void breed(City *city, int x, int y) = 0;
+
 	//virtual void spawn() = 0;
-	//virtual int getSpecies() = 0; //this could also be coded concrete here
+	virtual int getSpecies() = 0;
 	//virtual void getPosition() = 0;
 
 	void setPosition( int x, int y );
-	void endTurn();
+	void newTurn();
 	bool isTurn();
 	void textcolor(int attribute, int textColor, int backgroundColor);
 
